@@ -1,3 +1,9 @@
+'''
+This code is used to format ticket data so they are ready for finetuning. 
+Only tickets can be decoded with utf-8 are used.
+The output example is formated to be compatible with DeepSpeed-Chat pipeline.
+'''
+
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text

@@ -1,3 +1,8 @@
+'''
+This code is used to generate examples for in-context learning. 
+Only tickets from Design Safe Queue is used. 
+The output example is formated to be used for SemanticSimilarityExampleSelector from langchain library.
+'''
 import pandas as pd
 from sqlalchemy import create_engine
 from sqlalchemy.sql import text
@@ -172,14 +177,17 @@ for key, ticket in tickets_cleaned.items():
         history = ""
         for i in range(len(cleaned_emails)):
             if i % 2 == 1:
-                pair = {"input": history + " Assistant:", 
+                pair = {"input": history, 
                         "output": cleaned_emails[i]
                         }
                 question_answer_pairs.append(pair)
             if i % 2 == 0:
-                history += " Human: " + cleaned_emails[i]
+                if i != 0:
+                    history += " Human: " + cleaned_emails[i]
+                else:
+                    history += cleaned_emails[i]
             else:
-                history += " Assistant: " + cleaned_emails[i]
+                history += " AI: " + cleaned_emails[i]
 
 
 
